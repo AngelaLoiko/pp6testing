@@ -27,30 +27,32 @@ def person_name(my_docs=documents, number_doc="2207 876234"):
             print('Такого номера документа не существует')
 
 
-def shelf_number(my_dir):
-    number_doc = input('Введите номер документа: ')
+def shelf_number(my_dir=directories, number_doc='11-22'):
+    # number_doc = input('Введите номер документа: ')
     is_exist_number_doc = False
     for key, values in my_dir.items():
         if number_doc in list(values):
-            print(f'документ № {number_doc} лежит на полке № {key}')
+            return(f'документ № {number_doc} лежит на полке № {key}')
             is_exist_number_doc = True
     else:
         if not is_exist_number_doc:
-            print(f'Такой № документа: {number_doc} не лежит на полке')
+            return(f'Такой № документа: {number_doc} не лежит на полке')
 
 
-def documents_list(my_docs):
+def documents_list(my_docs=documents):
+    i = 0
     for document in my_docs:
         need_record = (f'''{document['type']} "{document['number']}" "{document['name']}"''')
+        i += 1
         print(need_record)
-        return(need_record)
+    return i
 
 
-def add_doc(my_docs, my_dir):
-    doc_type = input('Введите тип документа: ')
-    doc_number = input('Введите номер документа: ') #задача проверять на уникальность не ставилась
-    owner_name = input('Введите имя владельца: ')
-    shelf_number = input('Введите номер полки: ')
+def add_doc(my_docs, my_dir, doc_type='passport', doc_number='2727', owner_name='Василий Ужепупкин', shelf_number='1' ):
+    #doc_type = input('Введите тип документа: ')
+    #doc_number = input('Введите номер документа: ') #задача проверять на уникальность не ставилась
+    # owner_name = input('Введите имя владельца: ')
+    # shelf_number = input('Введите номер полки: ')
     while my_dir.get(shelf_number) is None:
         print(f'Номера полки {shelf_number} не существует')
         shelf_number = input('Повторите ввод номера полки: ')
@@ -62,7 +64,7 @@ def add_doc(my_docs, my_dir):
         my_dir[shelf_number] = new_doc_list
         print(my_docs)
         print(my_dir)
-
+        return new_doc
 
 def del_doc(my_docs, my_dir):
     doc_number = input('Введите номер документа: ')
